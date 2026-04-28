@@ -2,7 +2,7 @@ name: Run Unit Tests
 
 # la fiecare push pe main
 on:
-  push:
+  pull_request:
     branches:
       - main
 
