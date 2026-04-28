@@ -81,7 +81,6 @@ class Tree:
             self._printPreorderTree(node.right)
 
     def _printPostorderTree(self, node):
-      """Method for postorder tree traversal"""
         if node is not None:
             self._printPostorderTree(node.left)
             self._printPostorderTree(node.right)
