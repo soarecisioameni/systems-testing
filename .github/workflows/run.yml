@@ -1,20 +1,33 @@
-name: cicd-documentation
+name: Run Unit Tests
 
+# la fiecare push pe main
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  run:
-    name: 🚀 Run
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+  test:
+    runs-on: ubuntu-latest # Sistemul de operare pe care rulează testele în cloud
 
-      - name: 🚀 Run
-        shell: bash
+    steps:
+      # Pasul 1: Descarcă codul tău din GitHub în mediul de rulare
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Pasul 2: Configurează limbajul (ex: Python)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Pasul 3: Instalează dependențele și framework-ul de testare
+      - name: Install dependencies
         run: |
-          cd laboratories/cicd-documentation
-          python3 main.py
+          python -m pip install --upgrade pip
+          # pip install -r requirements.txt  <-- decomentează dacă ai acest fișier
+          pip install pytest # Folosim pytest ca exemplu pentru teste
+
+      # Pasul 4: Rulează efectiv testele
+      - name: Run tests
+        run: pytest
